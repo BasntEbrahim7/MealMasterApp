@@ -18,10 +18,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch meals starting with 'C' when the screen is initialized
-    context.read<mealCubit>().getMealsByFirstLetter('c');
-    context.read<mealCubit>().getMealsByFirstLetter('a');
-    context.read<mealCubit>().getMealsByFirstLetter('b');// Adjusted method to follow cubit pattern
+    // Fetch meals for all letters (A-Z) when the screen is initialized
+    context.read<mealCubit>().getAllMeals();
   }
 
   @override
@@ -113,6 +111,23 @@ class _MainScreenState extends State<MainScreen> {
                                 mealName: meal['strMeal'] ?? "Meal", // Display meal name
                                 mealImage: meal['strMealThumb'] ?? '', // Display meal image
                                 borderRadius: 15,
+                                mealRecipe: meal['strInstructions'] ?? "No instructions available.",
+                                ing1: meal['strIngredient1'] ?? "",
+                                ing2: meal['strIngredient2'] ?? "",
+                                ing3: meal['strIngredient3'] ?? "",
+                                ing4: meal['strIngredient4'] ?? "",
+                                ing5: meal['strIngredient5'] ?? "",
+                                ing6: meal['strIngredient6'] ?? "",
+                                ing7: meal['strIngredient7'] ?? "",
+                                ing8: meal['strIngredient8'] ?? "",
+                                ing9: meal['strIngredient9'] ?? "",
+                                ing10: meal['strIngredient10'] ?? "",
+                                ing11: meal['strIngredient11'] ?? "",
+                                ing12: meal['strIngredient12'] ?? "",
+                                ing13: meal['strIngredient13'] ?? "",
+                                ing14: meal['strIngredient14'] ?? "",
+                                ing15: meal['strIngredient15'] ?? "",
+
                               );
                             },
                           );

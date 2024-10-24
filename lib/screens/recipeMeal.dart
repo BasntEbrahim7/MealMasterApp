@@ -41,7 +41,7 @@ class RecipeDetailsPage extends StatelessWidget {
         backgroundColor: Color(0xffe7e0d8),
         iconTheme: IconThemeData(color: Color(0xFF550507)),
       ),
-      body: Padding(
+      body: SingleChildScrollView( // Wrap content in a scrollable view
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,11 +50,11 @@ class RecipeDetailsPage extends StatelessWidget {
                 ? Center(
               child: Image.network(
                 meal.strMealThumb!,
-                height: 250,
+                height: 200,
               ),
             )
                 : SizedBox.shrink(),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Text(
               'Category: ${meal.strCategory ?? 'N/A'}',
               style: TextStyle(
@@ -65,7 +65,7 @@ class RecipeDetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Recipe Details (Dummy Data):',
+              'Recipe Details:',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -74,43 +74,64 @@ class RecipeDetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
 
-           Center(
-             child: Container(
-               width: 350,
-               height: 455,
-               decoration: BoxDecoration(color:Colors.brown.shade200,borderRadius: BorderRadius.circular(15)),
+            // Scrollable container for ingredients
+            Center(
+              child: Container(
+                width: 250,
+                height: 364,
+                decoration: BoxDecoration(
+                  color: Colors.brown.shade200,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.all(8.0),
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    SizedBox(height: 20),
+                    _buildIngredientRow(meal.strIngredient1, meal.strMeasure1, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient2, meal.strMeasure2, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient3, meal.strMeasure3, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient4, meal.strMeasure4, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient5, meal.strMeasure5, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient6, meal.strMeasure6, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient7, meal.strMeasure7, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient8, meal.strMeasure8, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient9, meal.strMeasure9, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient10, meal.strMeasure10, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient11, meal.strMeasure11, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient12, meal.strMeasure12, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient13, meal.strMeasure13, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient14, meal.strMeasure14, ingredientTextStyle, measureTextStyle),
+                    _buildIngredientRow(meal.strIngredient15, meal.strMeasure15, ingredientTextStyle, measureTextStyle),
 
-               child: Center(
-                 child: ListView(
-                   padding: const EdgeInsets.all(8.0),
-                   physics: const BouncingScrollPhysics(),
-                   children: [Column(
-                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                     children: [
-                       SizedBox(height: 20,),
-
-                       _buildIngredientRow(meal.strIngredient1, meal.strMeasure1, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient2, meal.strMeasure2, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient3, meal.strMeasure3, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient4, meal.strMeasure4, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient5, meal.strMeasure5, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient6, meal.strMeasure6, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient7, meal.strMeasure7, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient8, meal.strMeasure8, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient9, meal.strMeasure9, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient10, meal.strMeasure10, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient11, meal.strMeasure11, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient12, meal.strMeasure12, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient13, meal.strMeasure13, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient14, meal.strMeasure14, ingredientTextStyle, measureTextStyle),
-                       _buildIngredientRow(meal.strIngredient15, meal.strMeasure15, ingredientTextStyle, measureTextStyle),
-                     ],
-                   ),
-                 ]),
-               ),
-             ),
-           ) // Ingredient and measure rows with consistent text styles
-
+                  ],
+                ),
+              ),
+            ),SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Recipe Instructions',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff550507),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                meal.strInstructions??"", // Show the recipe instructions
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
           ],
         ),
       ),
@@ -118,23 +139,17 @@ class RecipeDetailsPage extends StatelessWidget {
   }
 
   // Helper function to build each ingredient and measure row with consistent styles
-  Widget _buildIngredientRow(
-      String? ingredient, String? measure, TextStyle ingredientStyle, TextStyle measureStyle) {
+  Widget _buildIngredientRow(String? ingredient, String? measure, TextStyle ingredientStyle, TextStyle measureStyle) {
     return Row(
-
       children: [
-        SizedBox(width: 20,),
+        SizedBox(width: 20),
         Expanded(
           flex: 1,
-           // Adjusts how much space the ingredient takes
-          child: Text(measure ?? '', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Color(0xFF550507))),
+          child: Text(measure ?? '', style: measureStyle),
         ),
-        SizedBox(width: 10), // Adds some spacing between ingredient and measure
         Expanded(
           flex: 1,
-           // Adjusts how much space the measure takes
-
-          child: Text(ingredient ?? '', style: TextStyle(fontSize:20,color: Color(0xFF550507),fontWeight: FontWeight.bold)),
+          child: Text(ingredient ?? '', style: ingredientStyle),
         ),
       ],
     );
