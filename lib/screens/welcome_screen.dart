@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../logic/Meal_cubit.dart';
+import '../logic/show_meal_cubit.dart';
 import 'main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         context,
         MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => MealCubit(),
+            create: (context) => mealCubit(),
             child: MainScreen(),
           ),
         ),

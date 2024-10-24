@@ -1,28 +1,31 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mealmasterapp/logic/show_meal_state.dart';
+import '../data/app_repo/Dio_halper.dart';
 
-import '../data/models/model 2.dart';
-import 'Meal_state.dart';
-import 'show_meal_state.dart';
+class mealCubit extends Cubit<mealState> {
+  mealCubit() : super(mealInitial());
 
+  static mealCubit get(context) => BlocProvider.of(context);
 
-class MealCubit extends Cubit<MealState> {
-  final Dio _dio;
+  // Fetch meals by the first letter
+  void getMealsByFirstLetter(String letter) {
+    emit(mealLoading()); // Emit loading state
 
-  MealCubit(this._dio) : super(MealInitial());
+    DioHelper.getData(
+      url: "search.php",
+      query: {'f': letter},
+    ).then((value) {
+      List<Map<String, String?>> meals = List<Map<String, String?>>.from(
+        value.data['meals'].map(
+              (meal) => Map<String, String?>.from(meal),
+        ),
+      );
 
-  Future<void> fetchRandomMeals(int count) async {
-    emit(MealLoading());
-    try {
-      final List<Meal> meals = [];
-      for (int i = 0; i < count; i++) {
-        final response = await _dio.get('https://www.themealdb.com/api/json/v1/1/random.php');
-        final meal = Meal.fromJson(response.data);
-        meals.add(meal);
-      }
-      emit(MealLoaded(meals));
-    } catch (e) {
-      emit(MealError('Failed to fetch meals: ${e.toString()}'));
-    }
+      emit(mealLoaded(meals)); // Emit loaded state with the meals
+    }).catchError((error) {
+      print("Error fetching meals: $error");
+      emit(mealError("Failed to load meals")); // Emit error state
+    });
   }
 }

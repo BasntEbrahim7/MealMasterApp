@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mealmasterapp/screens/recipe_screen.dart';
 
 class GridviewConts extends StatelessWidget {
-  final String mealImage; // New parameter for meal image
-  final String mealName; // New parameter for meal name
+  final String mealImage; // Parameter for meal image
+  final String mealName;  // Parameter for meal name
   final double borderRadius;
 
   GridviewConts({
@@ -40,12 +40,13 @@ class GridviewConts extends StatelessWidget {
             ),
           ],
           image: DecorationImage(
-            image: NetworkImage(mealImage), // Use NetworkImage to load from URL
+            image: NetworkImage(mealImage), // Display meal image from URL
             fit: BoxFit.cover,
           ),
         ),
         child: Stack(
           children: [
+            // Overlay for gradient effect on image
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -59,7 +60,7 @@ class GridviewConts extends StatelessWidget {
                 ),
               ),
             ),
-            // Text overlay
+            // Text overlay for meal name
             Positioned(
               bottom: 10,
               left: 5,
