@@ -7,7 +7,7 @@ class DioHelper {
   static init() {
     dio = Dio(
         BaseOptions(
-          baseUrl: 'https://medicalapp.eraasoft.com/api/',
+          baseUrl: 'https://themealdb.com/api/json/v1/1/',
           receiveDataWhenStatusError: true,
         )
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../logic/Meal_cubit.dart';
 import 'main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -52,10 +54,16 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     // Delay for splash screen and navigate to the home screen
     Future.delayed(const Duration(seconds:4), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MainScreen()),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => MealCubit(),
+            child: MainScreen(),
+          ),
+        ),
+      );}
       );
-    });
   }
 
   @override

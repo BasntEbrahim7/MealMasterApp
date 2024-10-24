@@ -20,12 +20,19 @@ class _AppRootState extends State<AppRoot> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<MealCubit>(
+            create: (context) => MealCubit(), // Initialize your MealCubit here
+          ),
+        ],
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
+
       home: BlocProvider(
         create: (context) => MealCubit(), // Create and provide MealCubit
         child: HomeScreen(), // Pass HomeScreen as a child
       ),
-    );
+    ));
   }
 }
